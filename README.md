@@ -85,7 +85,7 @@ order by total_count Desc
 limit 5
 ```
 * Methode-2 using Sub-Query
-  ```sql
+```sql
   select
   UNNEST(string_to_array(country,','))as new_country,
    count(show_id)as total_count
@@ -93,46 +93,51 @@ limit 5
   group by new_country
   order by total_count Desc
  limit 5
-```
---5. Identify the longest movie
+   ```
+### 5. Identify the longest movie
+```sql
 select * from netflix
 where 
 type='Movie'
 AND
 Duration=(select Max(duration) from netflix )
-
---6. Find content added in the last 5 years
+```
+### 6. Find content added in the last 5 years
+```sql
 select *
 from netflix
 where
 To_Date(date_added,'Month DD,YYYY')>=current_date-interval'5 years'
-
---7. Find all the movies/TV shows by director 'Rajiv Chilaka'!
+```
+###7. Find all the movies/TV shows by director 'Rajiv Chilaka'!
+```sql
 select * 
 from netflix
 where director ILike'%Rajiv Chilaka%'
 AND
 type='Movie'
-
---8. List all TV shows with more than 5 seasons
-
+```
+### 8. List all TV shows with more than 5 seasons
+```sql
 select *
 from netflix 
 where
 type='TV Show'
 AND 
 Split_Part(duration,' ', 1)::integer>5
-
---9. Count the number of content items in each genre
+```
+### 9. Count the number of content items in each genre
+```sql
 select
 UNNEST(String_to_Array(listed_in,','))as genre,
 count(show_id)
 from netflix
 group by 1
 order by 2 desc
-
---10.Find each year and the average numbers of content release in India on netflix
---return top 5 year with highest avg content release!.
+```
+### 10.Find each year and the average numbers of content release in India on netflix
+###return top 5 year with highest avg content release!.
+```sql
 select
      Extract (year from To_Date(date_added,'Month DD,YYYY')) as years,
 	 count(*) as yearly_content,
@@ -143,23 +148,28 @@ country='India'
 group by 1		 
 order by 3 desc
 limit 5
---11.List all movies that are documentaries
+```
+### 11.List all movies that are documentaries
+```sql
 select * from netflix 
 where listed_in Ilike '%documentaries%'
-
---12. Find all content without a director
+```
+### 12. Find all content without a director
+```sql
 select *
 from netflix
 where director is null
-
---13. Find how many movies actor 'Salman Khan' appeared in last 10 years!
+```
+### 13. Find how many movies actor 'Salman Khan' appeared in last 10 years!
+```sql
 select * 
 from netflix
 where casts Ilike '%Salman Khan%'
 AND
 release_year >=Extract(Year from Current_Date)-10
-
---14. Find the top 10 actors who have appeared in the highest number of movies produced in India.
+```
+### 14. Find the top 10 actors who have appeared in the highest number of movies produced in India.
+```sql
 select 
 UNNEST(string_to_array(casts,','))as actors,
 count(*)as total_content
@@ -168,11 +178,11 @@ where country Ilike '%india%'
 group by 1
 order by 2 desc
 limit 10
-
---15.
---Categorize the content based on the presence of the keywords 'kill' and 'violence' in 
---the description field. Label content containing these keywords as 'Bad' and all other 
---content as 'Good'. Count how many items fall into each category.
+```
+#### 15.Categorize the content based on the presence of the keywords 'kill' and 'violence' in 
+### the description field. Label content containing these keywords as 'Bad' and all other 
+### content as 'Good'. Count how many items fall into each category.
+```sql
  with cte as
  (select * ,
 CASE
@@ -187,7 +197,13 @@ from netflix
  count(*) as total_content
  from cte
  group by 1
-
+```
+## Finding and Conclusion
+*###Content Distribution: The dataset contains a diverse range of movies and TV shows with varying ratings and genres.
+Common Ratings: Insights into the most common ratings provide an understanding of the content's target audience.
+Geographical Insights: The top countries and the average content releases by India highlight regional content distribution.
+Content Categorization: Categorizing content based on specific keywords helps in understanding the nature of content available on Netflix.
+This analysis provides a comprehensive view of Netflix's content and can help inform content strategy and decision-making.
 
 
 
