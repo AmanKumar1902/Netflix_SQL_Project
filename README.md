@@ -109,7 +109,7 @@ from netflix
 where
 To_Date(date_added,'Month DD,YYYY')>=current_date-interval'5 years'
 ```
-###7. Find all the movies/TV shows by director 'Rajiv Chilaka'!
+### 7. Find all the movies/TV shows by director 'Rajiv Chilaka'!
 ```sql
 select * 
 from netflix
@@ -136,7 +136,7 @@ group by 1
 order by 2 desc
 ```
 ### 10.Find each year and the average numbers of content release in India on netflix
-###return top 5 year with highest avg content release!.
+### return top 5 year with highest avg content release!.
 ```sql
 select
      Extract (year from To_Date(date_added,'Month DD,YYYY')) as years,
@@ -199,7 +199,7 @@ from netflix
  group by 1
 ```
 ## Finding and Conclusion
-*###Content Distribution: The dataset contains a diverse range of movies and TV shows with varying ratings and genres.
+*### Content Distribution: The dataset contains a diverse range of movies and TV shows with varying ratings and genres.
 Common Ratings: Insights into the most common ratings provide an understanding of the content's target audience.
 Geographical Insights: The top countries and the average content releases by India highlight regional content distribution.
 Content Categorization: Categorizing content based on specific keywords helps in understanding the nature of content available on Netflix.
