@@ -32,12 +32,14 @@ Create table netflix
 ```
 ## Business Problem and Solutions
 ### 1. Count the number of Movies vs TV Shows
+```sql
 select type,count(*) as total_content
 from netflix
 Group by type
-
---2. Find the most common rating for movies and TV shows
---Methode-1 using cte
+```
+### 2. Find the most common rating for movies and TV shows
+* Methode-1 using cte
+```sql
  with cte as(select 
 type,
 rating,
@@ -47,7 +49,9 @@ from netflix
 group by 1,2)
 select type,rating from cte
 where ranking=1
---Methode-2 using Sub-Query
+```
+* Methode-2 using Sub-Query
+```sql
 select type,
 rating
 from
@@ -59,15 +63,16 @@ Rank()over(partition by type order by count(*) desc)as ranking
 from netflix
 group by 1,2)as t1
 where ranking=1
-
---3. List all movies released in a specific year (e.g., 2020)
+```
+### 3. List all movies released in a specific year (e.g., 2020)
+```sql
 select *
 from netflix
 where release_year=2020 and type='Movie'
-
-
---4. Find the top 5 countries with the most content on Netflix
---Methode-1 using cte
+```
+### 4. Find the top 5 countries with the most content on Netflix
+* Methode-1 using cte
+```sql
 with cte as
 (select show_id,
   UNNEST(string_to_array(country,','))as new_country
@@ -78,16 +83,17 @@ from cte
 group by new_country
 order by total_count Desc 
 limit 5
---Methode-2 using Sub-Query
-
-select
+```
+* Methode-2 using Sub-Query
+  ```sql
+  select
   UNNEST(string_to_array(country,','))as new_country,
-count(show_id)as total_count
-from netflix
-group by new_country
-order by total_count Desc
-limit 5
-
+   count(show_id)as total_count
+   from netflix
+  group by new_country
+  order by total_count Desc
+ limit 5
+```
 --5. Identify the longest movie
 select * from netflix
 where 
