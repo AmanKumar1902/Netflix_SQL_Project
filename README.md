@@ -12,7 +12,7 @@ This project involves a comprehensive analysis of Netflix's movies and TV shows 
 The data for this project is sourced from the Kaggle dataset:
 * Dataset Link: [Movies Dataset](https://www.kaggle.com/datasets/shivamb/netflix-shows?resource=download)
 ## Schema
-''' sql
+``` sql
 Create table netflix
 (
 	show_id	varchar(10),
@@ -29,7 +29,7 @@ Create table netflix
 	description varchar(250)
 	
 );
-'''
+```
 select* from netflix;
 
 select count(*) as totalcount
